@@ -46,6 +46,34 @@ public:
         }
         std::cout << std::endl;
     }
+    void addAnywhere(int position, T* value) override {
+		// Check if position is within range; 
+        if (position < 0 || position > size_) {
+            std::cout << "Invalid position." << std::endl;
+            return;
+        }
+        if (size_ >= CAPACITY) {
+			std::cout << "ArrayList is full." << std::endl;
+			return;
+		}
+		//identical top addFront if position == 0
+		if (position == 0) {
+			addFront(value);
+			return;
+		}
+		//adds to end of list if position == size_, avoiding the 0(n) shift.
+        if (position == size_) {
+			data_[size_] = value;
+            return;
+        }
+        // adding to any other position, and shifting elements to the right, 
+		for (int i = size_; i > position; --i) {
+			data_[i] = data_[i - 1];
+		}
+		data_[position] = value;
+		++size_;
+    }
+
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];

@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for PA210, include source and define
+﻿# CMakeList.txt : CMake project for PA210,
 # project specific logic here.
 #
 
@@ -9,4 +9,3 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET PA210 PROPERTY CXX_STANDARD 20)
 endif()
 
-# TODO: Add tests and install targets if needed.
