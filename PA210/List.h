@@ -12,6 +12,7 @@ public:
     virtual void deleteFront() = 0;
     virtual bool search(T* value) const = 0;
     virtual void print() const = 0;
+	virtual bool isEmpty() const = 0;
 
     virtual void addAnywhere(int position, T* value) = 0;
     virtual void deleteAnywhere(int position) = 0;

@@ -2,8 +2,6 @@
 // Created by riosd on 9/17/2026.
 //
  
-
-// Solution file. Lab 3's LinkedList plus addBack, getFront, isEmpty, size.
 // tail_ is back so addBack is O(1). size_ is new so size() is O(1).
 # pragma once
 #include "Node.h" #include "List.h"
@@ -23,19 +21,6 @@ public:
         ++size_;
     }
 
-    void addBack(T* value) override {
-        Node<T>* fresh = new Node<T>(value);
-        if (tail_ == nullptr) {
-            head_ = fresh;          // first node is both head and tail
-            tail_ = fresh;
-        }
-        else {
-            tail_->next = fresh;
-            tail_ = fresh;
-        }
-        ++size_;
-    }
-
     void deleteFront() override {
         if (head_ == nullptr) {
             std::cout << "LinkedList is empty." << std::endl;
@@ -51,19 +36,8 @@ public:
         --size_;
     }
 
-    T* getFront() const override {
-        if (head_ == nullptr) {
-            return nullptr;
-        }
-        return head_->data;
-    }
-
     bool isEmpty() const override {
         return head_ == nullptr;
-    }
-
-    int size() const override {
-        return size_;
     }
 
     bool search(T* value) const override {
