@@ -122,10 +122,43 @@ public:
 		}
 		++size_;
     }
-        ~LinkedList() override {
-            while (head_ != nullptr) {
-                Node<T>* doomed = head_;
-                head_ = head_->next;
+    void deleteAnywhere(int position) override {
+        //position == 0 is identical to deleteFront, avoiding o(n) search
+        if (position == 0) {
+            deleteFront()
+                return;
+        }
+        if (size_ == 0) {
+            std::cout << "LinkedList is empty." << std::endl;
+            return;
+        }
+		if (position < 0 || position >= size_) { //range excludes size_ since size is not a valid index; position is 0-indexed.
+            std::cout << "Invalid position." << std::endl;
+            return;
+        }
+        Node<T>* doomed = head_;
+        for (int i = 0; i < position; ++i) {
+            doomed = doomed->next;
+        }//doomed is at position
+		Node<T>* prev = head_;
+		for (int i = 0; i < position - 1; ++i) {
+			prev = prev->next;
+		} 
+		prev->next = doomed->next;
+        /* prev points to node after doomed, skipping over it.
+        including pointing to nullptr if doomed was tail_. */
+		if (doomed == tail_) { 
+            tail_ = prev; 
+		}
+		delete doomed->data;
+		delete doomed;
+		--size_;
+	}
+
+	~LinkedList() override {
+		while (head_ != nullptr) {
+			Node<T>* doomed = head_;
+			head_ = head_->next;
                 delete doomed->data;
                 delete doomed;
             }

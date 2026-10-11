@@ -73,9 +73,27 @@ public:
 		data_[position] = value;
 		++size_;
     }
-
+   
 	void deleteAnywhere(int position) override {
-		
+		if (size_ == 0) {
+			std::cout << "ArrayList is empty." << std::endl;
+			return;
+		}
+		if (position < 0 || position >= size_) { // range is from 0 to size-1 becuase size points to an already empty or OOB index.
+			std::cout << "Invalid position." << std::endl;
+			return;
+		}
+
+		delete data_[position];
+
+        if (position == size_ - 1) { // avoid shifting if deleting the last element.
+            --size_;
+            return;
+        }
+		for (int i = position; i < size_ - 1; ++i) { // shift elements to the left to fill the gap
+			data_[i] = data_[i + 1];
+		}
+		--size_;
 	}
 
     ~ArrayList() override {
