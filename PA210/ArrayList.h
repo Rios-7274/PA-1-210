@@ -46,6 +46,9 @@ public:
         }
         std::cout << std::endl;
     }
+	bool isEmpty() const override {
+		return size_ == 0;
+	}
     void addAnywhere(int position, T* value) override {
         if (size_ >= CAPACITY) {
             std::cout << "ArrayList is full." << std::endl;
@@ -94,6 +97,29 @@ public:
 			data_[i] = data_[i + 1];
 		}
 		--size_;
+	}
+	void reverse() override {
+		if (isEmpty() || size_ == 1) 
+			return; // reverts into itself if empty or has one element.
+		for (int i = 0; i < size_ / 2; ++i) {
+			std::swap(data_[i], data_[size_ - 1 - i]);
+		}
+	}
+	void concat(List<T>* other) override {
+		ArrayList<T>* otherArray = dynamic_cast<ArrayList<T>*>(other);
+		if (otherArray == nullptr) {
+			std::cout << "List type does not match, cannot concatenate." << std::endl;
+			return;
+		}
+		if (size_ + otherArray->size_ > CAPACITY) {
+			std::cout << "Not enough capacity to concatenate lists." << std::endl;
+			return;
+		}
+		for (int i = 0; i < otherArray->size_; ++i) {
+			data_[size_ + i] = otherArray->data_[i];
+		}
+		size_ += otherArray->size_;
+		otherArray->size_ = 0; // empties otherArrays size to avoid double deletion of elements
 	}
 
     ~ArrayList() override {
