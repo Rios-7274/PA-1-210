@@ -144,7 +144,8 @@ public:
             current links backwards to prev, which is nullptr for the firt iteration.*/
 			next = current->next; 
 			current->next = prev; 
-            /* Below, the logical index of the previous node and current are shifted to the right.
+            /* Below, the logical index of the previous node and current are shifted to the right 
+            (asuming old order was from left-to-right).
             current and node are pointing to the same memory location.*/
 			prev = current;       // move prev forward
 			current = next;       // move current forward
